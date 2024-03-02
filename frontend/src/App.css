@@ -1,0 +1,207 @@
+.watchlist{
+   margin-top: 4%;
+   background-image: url("/public/images/home-background.png");
+   height: auto;
+  
+}
+nav{
+position: fixed;
+top:0;
+left:0;
+right:0;
+background-color:#222534;
+
+display:flex;
+z-index:1;
+}
+.logo{
+  margin-left: 10px;
+  left: 0;
+  right: 0;
+}
+nav a{
+    margin-right: 5px;
+    text-decoration: none;
+    color: white;
+    margin-left: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+    letter-spacing: 1.5px;
+    display: flex;
+
+
+}
+ nav a:hover{
+    color: blanchedalmond;
+}
+input[placeholder="Search"]{
+  margin-top: 5px;
+  width:350px;
+  padding: 5px;
+  border-radius: 10px;
+}
+.landing-img{
+  height: 100vh;
+  width: 100%;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.centered {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width:250px;
+    padding: 7px;
+    background-color: rgb(74, 141, 235);
+    color: white;
+    font-size: 20px;
+  }
+  .centered2{
+    position: absolute;
+    top: 67%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: lighter;
+    font-size: 10px;
+
+  }
+.display{
+  margin-top:4%;
+}
+.buttons{
+  display: flex;
+  flex-wrap: wrap;
+}
+.btn{
+  background-color: grey;
+  left: 50%;
+  border-radius: 7%;
+  margin-right: 15px;
+  color: white;
+
+}
+.centered-title{
+  letter-spacing:5px;
+  color: #f9f9f9;
+  font-size: 80px;
+  font-weight: bolder;
+  position: relative;
+  left: 10%;
+}
+.description{
+  letter-spacing:2px;
+  color: #f9f9f9;
+  width: 90%;
+  font-size: 18px;
+  position: relative;
+  font-weight: lighter;
+  left: 10%;
+  line-height:1.08;
+}
+.desc2{
+  letter-spacing:5px;
+  color: #f9f9f9;
+  width: 50%;
+  font-size: 18px;
+  position: relative;
+  font-weight: lighter;
+  font-style: italic;
+  left: 10%;
+  line-height:1.08;
+  
+}
+.buttons{
+  letter-spacing:5px;
+  width: 50%;
+  font-size: 18px;
+  position: relative;
+  left: 10%;
+  line-height:1.08;
+  
+}
+.filterBar{
+  margin-left: 80%;
+  margin-top: 5px;
+
+}
+select{
+  padding: 8px;
+  border-radius: 6px;
+  background-color: rgb(78, 163, 248);
+  color: #f9f9f9;
+
+}
+
+.login-btn1{
+  background-color: rgb(78, 163, 248);
+  color: #f9f9f9;
+  padding: 7px;
+  width:100px;
+  border-radius: 7px;
+  margin-left: 8px;
+
+}
+.icon-logo{
+  height: 25px;
+  width: 25px;
+  margin-right: 7px;
+  
+}
+.remove-icon{
+  width: 25px;
+  height: 25px;
+  margin-left: 45%;
+}
+.delete-icon{
+  width: 30px;
+  height: 30px;
+  margin-left: 20px;
+}
+.single-movie{
+  margin: 3%;
+}
+.back-icon{
+  position: relative;
+  top:34px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+
+}
+.star-rating{
+  margin-top: 3px;
+  margin-left: 10%;
+}
+.star-rating button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: #f5bd05;
+}
+.off {
+  color: #ccc;
+}
+.bg-details{
+  position: relative;
+  bottom: 400px;
+}
+.container1{
+  position: relative;
+  left: 30%;
+  
+}
+.add{
+  background-image: url(../public/images/home-background.png);
+}
