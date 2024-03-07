@@ -20,7 +20,7 @@ Welcome to the Movie Review App project! This application allows users to sign u
 
 ### Admin Features
 1. **Admin Login**: Administrative users have a separate login feature.
-2. **Administrative Privileges**: Admins have special privileges such as managing user accounts, adding new movies, editing movie details, and deleting reviews.
+2. **Administrative Privileges**: Admins have special privileges such as managing user accounts, adding new movies, editing movie details and deleting reviews.
 
 ## Admin Credentials
 - **Email**: admintesting@gmail.com
