@@ -23,3 +23,11 @@ function Carousel() {
           <img src="/images/slider-scales.jpg" className="d-block w-100" alt="..."/>
         </div>
       </div>
+            {/* Previous button for carousel navigation */}
+            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        {/* Previous button icon */}
+        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        {/* Visually hidden text for screen readers */}
+        <span className="visually-hidden">Previous</span>
+      </button>
+      {/* Next button for carousel navigation */}
