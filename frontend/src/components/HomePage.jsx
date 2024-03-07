@@ -16,3 +16,13 @@ function Homepage() {
   const groupedProducts = {};
   // Mapping through movies to group them by type
   // eslint-disable-next-line array-callback-return
+  movies &&
+  movies.map((movie) => {
+    if (groupedProducts[movie.type]) {
+      groupedProducts[movie.type].push(movie);
+    } else {
+      groupedProducts[movie.type] = [movie];
+    }
+  });
+
+// Returning the JSX for the Homepage component
