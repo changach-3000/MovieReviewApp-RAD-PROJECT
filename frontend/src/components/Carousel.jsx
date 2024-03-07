@@ -31,3 +31,15 @@ function Carousel() {
         <span className="visually-hidden">Previous</span>
       </button>
       {/* Next button for carousel navigation */}
+      <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        {/* Next button icon */}
+        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        {/* Visually hidden text for screen readers */}
+        <span className="visually-hidden">Next</span>
+      </button>
+    </div>
+  );
+}
+
+// Exporting the Carousel component as the default export
+export default Carousel;
