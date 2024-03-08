@@ -1,95 +1,103 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function NavBar() {
   const { logout, currentuser } = useContext(AuthContext);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prevIsDropdownOpen) => !prevIsDropdownOpen);
+  };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-black">
-      <div className="container-fluid">
-        <img src="logo.png" className="w-20 h-20" />
-        <Link className="navbar-brand mx-5 logo text-white" to="/">
-          MyFlix
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav ms-auto">
-            {/* {
-            currentuser && currentuser.id ? (
-              <> */}
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active text-white"
-                    aria-current="page"
-                    to="/home"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/watchlist">
-                    WatchList
-                  </Link>
-                </li>
-                {/* {
-                  currentuser && currentuser.is_admin? 
-                  <> */}
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/addmovie">
-                      Add Movie
-                    </Link>
-                  </li>
-                  {/* </>: " "
-                } */}
-                <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Profile
-                  </Link>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="/profile">
-                        My Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" onClick={() => logout()}>
-                        Logout
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              {/* </>
-            ) : ( */}
-              <div className="absolute inset-y-0 right-0 flex gap-4 items-center">
-                <Link to="/signup">
-                  <button className="rounded-full border-2 border-white p-2 w-32 hover:bg-yellow-00 text-white">
-                    Sign Up
-                  </button>
-                </Link>
-                <Link to="/login">
-                  <button className="rounded-full border-2 border-white p-2 w-32 hover:bg-yellow-400  text-white">
-                    LogIn
-                  </button>
-                </Link>
+    <nav className="bg-black">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="relative flex h-16 items-center justify-between">
+          {/* Logo and brand */}
+          <div className="flex-shrink-0 flex items-center text-white">
+            <img className="h-8 w-auto" src="logo.png" alt="MyFlix" />
+            <span className="ml-2">MyFlix</span>
+          </div>
+
+          {/* Links */}
+          {currentuser ? (
+           null
+          ) : 
+          <div className="hidden sm:block sm:ml-6">
+          <div className="flex space-x-4">
+            {/* Home Link */}
+            <Link
+              to="/home"
+              className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              aria-current="page"
+            >
+              HOME
+            </Link>
+
+            {/* WatchList Link */}
+            <Link
+              to="/watchlist"
+              className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+            >
+              WATCHLIST
+            </Link>
+
+            {/* Add Movie Link (for admins) */}
+            {currentuser && currentuser.is_admin  (
+              <Link
+                to="/addmovie"
+                className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              >
+                ADD MOVIE
+              </Link>
+            )}
+          </div>
+        </div>
+          }
+
+          {/* Profile Dropdown */}
+          {currentuser ? (
+            <div className="ml-3 relative">
+              <div>
+                <button
+                  onClick={toggleDropdown}
+                  className="relative flex rounded-full bg-gray-800 p-1 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  id="user-menu-button"
+                  aria-expanded={isDropdownOpen}
+                  aria-haspopup="true"
+                >
+                  <img
+                    className="h-8 w-8 rounded-full"
+                    src={currentuser.profile_picture}
+                    alt=""
+                  />
+                </button>
               </div>
-            {/* )} */}
-          </ul>
+              {isDropdownOpen && (
+                <div
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu-button"
+                  tabIndex="-1"
+                >
+                  <a
+                    onClick={() => logout()}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                    tabIndex="-1"
+                    id="user-menu-item-2"
+                  >
+                    Sign out
+                  </a>
+                  <p className="block px-4 py-2 text-sm text-gray-700">
+                    {currentuser.username}
+                  </p>
+                </div>
+              )}
+            </div>
+          ) : null}
         </div>
       </div>
     </nav>
