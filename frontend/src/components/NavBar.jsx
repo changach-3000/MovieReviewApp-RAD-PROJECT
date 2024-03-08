@@ -1,96 +1,103 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function NavBar() {
+  const { logout, currentuser } = useContext(AuthContext);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prevIsDropdownOpen) => !prevIsDropdownOpen);
+  };
+
   return (
     <nav className="bg-black">
-      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 bg-none">
-        <div class="relative flex h-16 items-center justify-between">
-          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            {/* <!-- Mobile menu button--> */}
-            <button
-              type="button"
-              class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              aria-controls="mobile-menu"
-              aria-expanded="false"
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="relative flex h-16 items-center justify-between">
+          {/* Logo and brand */}
+          <div className="flex-shrink-0 flex items-center text-white">
+            <img className="h-8 w-auto" src="logo.png" alt="MyFlix" />
+            <span className="ml-2">MyFlix</span>
+          </div>
+
+          {/* Links */}
+          {currentuser ? (
+           null
+          ) : 
+          <div className="hidden sm:block sm:ml-6">
+          <div className="flex space-x-4">
+            {/* Home Link */}
+            <Link
+              to="/home"
+              className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              aria-current="page"
             >
-              <span class="absolute -inset-0.5"></span>
-              <span class="sr-only">Open main menu</span>
+              HOME
+            </Link>
 
-              <svg
-                class="block h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
+            {/* WatchList Link */}
+            <Link
+              to="/watchlist"
+              className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+            >
+              WATCHLIST
+            </Link>
 
-              <svg
-                class="hidden h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
+            {/* Add Movie Link (for admins) */}
+            {currentuser && currentuser.is_admin  (
+              <Link
+                to="/addmovie"
+                className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+                ADD MOVIE
+              </Link>
+            )}
           </div>
-          <div class="flex items-center justify-between ">
-            <div class="items-center">
-              <img
-                src="logo.png"
-                alt="logo"
-                className="rounded-full h-24 w-24"
-              />
-            </div>
-            <div class="sm:ml-6 sm:block">
-              <div class="flex">
-                <Link
-                  to="/home"
-                  className=" text-white rounded-md px-3 py-2 text-sm font-medium relative"
-                  aria-current="page"
-                >
-                  HOME
-                  <span class="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-400 transform scale-x-0 origin-left transition-transfor group-hover:scale-x-100"></span>
-                </Link>
-                <Link
-                  to="/details"
-                  className="text-white rounded-md px-3 py-2 text-sm font-medium relative">
+        </div>
+          }
 
-                  
-                 SEARCH
-                </Link>
-                <Link
-                  to="/watchlist"
-                  className="text-white rounded-md px-3 py-2 text-sm font-medium relative"
+          {/* Profile Dropdown */}
+          {currentuser ? (
+            <div className="ml-3 relative">
+              <div>
+                <button
+                  onClick={toggleDropdown}
+                  className="relative flex rounded-full bg-gray-800 p-1 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  id="user-menu-button"
+                  aria-expanded={isDropdownOpen}
+                  aria-haspopup="true"
                 >
-            WATCHLIST
-                 
-                </Link>
+                  <img
+                    className="h-8 w-8 rounded-full"
+                    src={currentuser.profile_picture}
+                    alt=""
+                  />
+                </button>
               </div>
+              {isDropdownOpen && (
+                <div
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu-button"
+                  tabIndex="-1"
+                >
+                  <a
+                    onClick={() => logout()}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                    tabIndex="-1"
+                    id="user-menu-item-2"
+                  >
+                    Sign out
+                  </a>
+                  <p className="block px-4 py-2 text-sm text-gray-700">
+                    {currentuser.username}
+                  </p>
+                </div>
+              )}
             </div>
-          </div>
-          <div class="absolute inset-y-0 right-0 flex gap-4 items-center">
-           <Link to="/signup" ><button className="rounded-full border-2 border-white p-2 w-32 hover:bg-amber-500 text-white">
-              Sign Up
-            </button> </Link>
-            <Link to="/login"><button className="rounded-full border-2 border-white p-2 w-32 hover:bg-amber-500  text-white">
-               LogIn
-            </button></Link>
-          </div>
+          ) : null}
         </div>
       </div>
     </nav>
