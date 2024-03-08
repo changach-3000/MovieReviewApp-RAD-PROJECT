@@ -3,11 +3,11 @@
 Welcome to the Movie Review App project! This application allows users to sign up, log in, view available movies, add movies to their watchlist, read reviews, and submit their own reviews. Additionally, there is an admin login feature for administrative privileges.
 
 ## Collaborators
-- Chang'ach Sharon
-- Betsy Rotich
-- James Thaura
-- Teddy Mitei
-- Ken Kilachei
+- Chang'ach Sharon - CS/MG/0839/09/20
+- Betsy Rotich - CS/MG/0735/09/20
+- James Thaura - 
+- Teddy Mitei - CS/MG/0743/09/20
+- Ken Kilachei - CS/MG/0797/09/20
 
 ## Tech Stack
 **frontend** : reactjs
