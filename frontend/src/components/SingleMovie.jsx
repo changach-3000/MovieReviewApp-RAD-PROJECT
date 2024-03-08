@@ -1,98 +1,79 @@
-// import React,{useState,useEffect} from 'react'
-// import { useParams,useNavigate} from "react-router-dom";
-// import Rate from './Rate';
-
-// function SingleMovie({AddtoWatchlist}) {
-//     const [singlemovie,setSingleMovie] =useState(" ");
-
-//     const nav = useNavigate()
-//     const {id} = useParams()
-//     useEffect(()=>{
-//       fetch(`https://movies-csku.onrender.com/movies/${id}`)
-//       .then(res=>res.json())
-//       .then(singlemovie=>{
-//         setSingleMovie(singlemovie)     
-//       })
-//     },)
-//     const goBack = () => {
-//       nav(-1);}
-    
-//   return (
-//     <div className='single-movie' >
-//         {
-//           <div key={singlemovie.id}>
-//             <img src='https://img.icons8.com/ultraviolet/40/null/circled-left.png' onClick={goBack} className='back-icon'/>
-//             <img src={singlemovie.backgroundImg} className='img-fluid ' alt='loading...' />
-//             <div className='bg-details'> 
-//             <h5 className='centered-title'> {singlemovie.title}</h5>
-//             {/* style the bot details */}
-//             <p className='description'>{singlemovie.description}</p>
-//             <p style={{fontSize:'13px'}} className='desc2'> {singlemovie.subTitle}</p>
-//             <div className="buttons">
-//             <button className="btn">WATCH NOW</button>
-//             <button className="btn">WATCH TRAILER</button>
-//             <img src='https://img.icons8.com/ios/50/000000/add--v1.png' height="50px" width="50px" onClick={() => AddtoWatchlist(singlemovie)} alt="add"/>
-//             </div>
-//              <Rate />
-//           </div>
-//           </div>
-//           }
-//    </div>
-//   )
-// }
-
-// export default SingleMovie;
-
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import { MovieContext } from '../context/MovieContext'
-import Rate from './Rate'
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { MovieContext } from "../context/MovieContext";
+import Rate from "./Rate";
 
 function SingleMovie() {
-  const nav = useNavigate()
-  const { id } = useParams()
-  const [movie, setMovie] = useState()
-  const { AddtoWatchlist} =
-    useContext(MovieContext);
-
+  const nav = useNavigate();
+  const { id } = useParams();
+  const [movie, setMovie] = useState();
+  const { AddtoWatchlist } = useContext(MovieContext);
 
   useEffect(() => {
     fetch(`/api/movies/${id}`)
       .then((res) => res.json())
       .then((movie) => {
-        setMovie(movie)
-       
-      })
-  }, [])
+        setMovie(movie);
+      });
+  }, []);
   const goBack = () => {
-          nav(-1);}
+    nav(-1);
+  };
   return (
-    <div className="m-5">
-        { movie ? (
-     <div key={movie.id}>
-                  <img src='https://img.icons8.com/ultraviolet/40/null/circled-left.png' onClick={goBack} className='back-icon'/>
-                  <img src={movie.backgroundImg} className='img-fluid ' alt='loading...' />
-                  <div className='bg-details'> 
-                  <h5 className='centered-title'> {movie.title}</h5>
-                 {/* style the bot details */}
-                  <p className='description'>{movie.description}</p>
-                  <p style={{fontSize:'13px'}} className='desc2'> {movie.subTitle}</p>
-                  <div className="buttons">
-                  <button className="btn">WATCH NOW</button>
-                 <button className="btn">WATCH TRAILER</button>
-                  <img src='https://img.icons8.com/ios/50/000000/add--v1.png' height="50px" width="50px" onClick={() => AddtoWatchlist(movie)} alt="add"/>
-                  </div>
-                <Rate/>
-               </div>
-              
-               </div>
+    <div className="m-5 relative">
+      {movie ? (
+        <div key={movie.id} className="relative">
+          <img
+            src="https://img.icons8.com/ultraviolet/40/null/circled-left.png"
+            onClick={goBack}
+            className="back-icon absolute top-0 left-0 z-10"
+          />
+          <img
+            src={movie.backgroundImg}
+            className="img-fluid relative w-full"
+            alt="loading..."
+          />
+          <div className="absolute top-50 left-0 z-10 p-4 text-white">
+            <h5 className="text-3xl italic">{movie.title}</h5>
+            {/* Style the movie details */}
+            <p className="description max-w-md text-l font-medium">{movie.description}</p>
+            <p className="text-amber-500">
+              {movie.subTitle}
+            </p>
+            <div className="buttons">
+              <button className="btn text-amber-500">WATCH NOW</button>
+              <button className="btn text-amber-500">WATCH TRAILER</button>
+            </div>
+            <Rate />
+          </div>
 
-) : (
-  <p>No reviews available.</p>
-)}
-                
+          <div className="absolute bottom-0 left-0 p-4 bg-black w-full text-white">
+            <h5>Reviews</h5>
+            {movie.reviews && movie.reviews.length > 0 ? (
+              movie.reviews.map((review) => (
+                <div key={review.id}>
+                  <p>
+                    {review.comment}
+                    <br />
+                    {review.username}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p>No reviews available.</p>
+            )}
+           <button
+                      type="submit"
+                      className="inline-flex items-center justify-center  h-10 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-amber-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none"
+                    >
+                      Add Review
+                    </button>
+          </div>
+        </div>
+      ) : (
+        <p>Loading Movie details...</p>
+      )}
     </div>
-  )
+  );
 }
-
-export default SingleMovie
+export default SingleMovie;

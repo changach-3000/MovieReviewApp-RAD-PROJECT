@@ -53,7 +53,9 @@ function Homepage() {
                   >
                     Add to Watchlist
                   </button>
-                  {currentuser && currentuser.is_admin && (
+                  {
+                  currentuser && currentuser.is_admin? 
+                  <>
                     <button
                       className="btn btn-outline-danger btn-sm"
                       onClick={() => {
@@ -62,7 +64,8 @@ function Homepage() {
                     >
                       Delete
                     </button>
-                  )}
+                    </>: " "
+                }
                 </div>
               </div>
             ))}

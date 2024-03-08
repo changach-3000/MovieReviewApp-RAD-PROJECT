@@ -1,96 +1,95 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function NavBar() {
+  const { logout, currentuser } = useContext(AuthContext);
+
   return (
-    <nav className="bg-black">
-      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 bg-none">
-        <div class="relative flex h-16 items-center justify-between">
-          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            {/* <!-- Mobile menu button--> */}
-            <button
-              type="button"
-              class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              aria-controls="mobile-menu"
-              aria-expanded="false"
-            >
-              <span class="absolute -inset-0.5"></span>
-              <span class="sr-only">Open main menu</span>
-
-              <svg
-                class="block h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-
-              <svg
-                class="hidden h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <div class="flex items-center justify-between ">
-            <div class="items-center">
-              <img
-                src="logo.png"
-                alt="logo"
-                className="rounded-full h-24 w-24"
-              />
-            </div>
-            <div class="sm:ml-6 sm:block">
-              <div class="flex">
-                <Link
-                  to="/home"
-                  className=" text-white rounded-md px-3 py-2 text-sm font-medium relative"
-                  aria-current="page"
-                >
-                  HOME
-                  <span class="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-400 transform scale-x-0 origin-left transition-transfor group-hover:scale-x-100"></span>
+    <nav className="navbar navbar-expand-lg bg-black">
+      <div className="container-fluid">
+        <img src="logo.png" className="w-20 h-20" />
+        <Link className="navbar-brand mx-5 logo text-white" to="/">
+          MyFlix
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul className="navbar-nav ms-auto">
+            {/* {
+            currentuser && currentuser.id ? (
+              <> */}
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active text-white"
+                    aria-current="page"
+                    to="/home"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/watchlist">
+                    WatchList
+                  </Link>
+                </li>
+                {/* {
+                  currentuser && currentuser.is_admin? 
+                  <> */}
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/addmovie">
+                      Add Movie
+                    </Link>
+                  </li>
+                  {/* </>: " "
+                } */}
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Profile
+                  </Link>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link className="dropdown-item" to="/profile">
+                        My Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" onClick={() => logout()}>
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              {/* </>
+            ) : ( */}
+              <div className="absolute inset-y-0 right-0 flex gap-4 items-center">
+                <Link to="/signup">
+                  <button className="rounded-full border-2 border-white p-2 w-32 hover:bg-yellow-00 text-white">
+                    Sign Up
+                  </button>
                 </Link>
-                <Link
-                  to="/details"
-                  className="text-white rounded-md px-3 py-2 text-sm font-medium relative">
-
-                  
-                 SEARCH
-                </Link>
-                <Link
-                  to="/watchlist"
-                  className="text-white rounded-md px-3 py-2 text-sm font-medium relative"
-                >
-            WATCHLIST
-                 
+                <Link to="/login">
+                  <button className="rounded-full border-2 border-white p-2 w-32 hover:bg-yellow-400  text-white">
+                    LogIn
+                  </button>
                 </Link>
               </div>
-            </div>
-          </div>
-          <div class="absolute inset-y-0 right-0 flex gap-4 items-center">
-           <Link to="/signup" ><button className="rounded-full border-2 border-white p-2 w-32 hover:bg-amber-500 text-white">
-              Sign Up
-            </button> </Link>
-            <Link to="/login"><button className="rounded-full border-2 border-white p-2 w-32 hover:bg-amber-500  text-white">
-               LogIn
-            </button></Link>
-          </div>
+            {/* )} */}
+          </ul>
         </div>
       </div>
     </nav>
