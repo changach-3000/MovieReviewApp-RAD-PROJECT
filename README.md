@@ -9,6 +9,11 @@ Welcome to the Movie Review App project! This application allows users to sign u
 - Teddy Mitei
 - Ken Kilachei
 
+## Tech Stack
+**frontend** : reactjs
+**backend** : ruby on rail
+```key note``` -- install ruby, nodejs to run the commands
+
 ## Features
 
 ### User Features
@@ -20,7 +25,7 @@ Welcome to the Movie Review App project! This application allows users to sign u
 
 ### Admin Features
 1. **Admin Login**: Administrative users have a separate login feature.
-2. **Administrative Privileges**: Admins have special privileges such as managing user accounts, adding new movies, editing movie details, and deleting reviews.
+2. **Administrative Privileges**: Admins have special privileges such as managing user accounts, adding new movies, editing movie details and deleting reviews.
 
 ## Admin Credentials
 - **Email**: admintesting@gmail.com
@@ -34,10 +39,10 @@ Welcome to the Movie Review App project! This application allows users to sign u
 
 ## How to Run the App
 
-1. Clone the repository to your local machine.
-2. Navigate to the project directory.
+1. Clone the repository to your local machine. `git clone https://github.com/changach-3000/MovieReviewApp-RAD-PROJECT.git`
+2. Navigate to the project directory. `cd MovieReviewApp-RAD-PROJECT`
 3. Install dependencies using the command `bundle install`.
-4. Navigate to the frontend directory
+4. Navigate to the frontend directory `cd frontend`
 5. Install dependancies using the command `npm install`
 6. Run the server using the command `rails s`.
 7. Run the frontend application using `npm start`.
