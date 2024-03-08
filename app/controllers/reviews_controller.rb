@@ -1,63 +1,47 @@
 class ReviewsController < ApplicationController
-        skip_before_action :authorize, only: [:index]
-           ##get all reviews
-        def index
-             reviews = Review.all.includes(:user)
-             reviews_data = reviews.map do |review|
-               {
-                 id: review.id,
-                 comment: review.comment,
-                 username: review.user.username
-               }
-             end
-             render json: reviews_data
-           end
-           
-           def create
-             @current_user
-             
-             if @current_user.nil?
-               render json: { error: "Only existing users can comment" }, status: :not_found 
-             else
-               review = @current_user.reviews.create(comment: params[:comment], food_id: params[:food_id])
-               render json:{success: "Comment created successfully"},status: :created
-             end
-           end
-      
-        ### update existing review by id
-    ### update existing review by id
-   def update
-        review = Review.find_by(id: params[:id])
-      
-        if review.nil?
-          render json: { error: "Review not found" }, status: :not_found
-        elsif review.user_id != @current_user.id
-          render json: { error: "You are not authorized to update this review" }, status: :unauthorized
-        else
-          if review.update(comment: params[:comment])
-            render json: { success: "Updated successfully" }
-          else
-            render json: { error: review.errors.full_messages.join(", ") }, status: :unprocessable_entity
-          end
-        end
+  skip_before_action :authorize, only: [:index]
+
+  # Create a review for a specific movie
+  def create
+    # Find the movie by its ID
+    movie = Movie.find_by(id: params[:movie_id])
+
+    if movie.nil?
+      render json: { error: "Movie not found" }, status: :not_found
+    else
+      # Create a review associated with the movie
+      review = movie.reviews.new(review_params)
+
+      # Set the current user as the author of the review
+      review.user = @current_user
+
+      if review.save
+        render json: { success: "Review created successfully" }, status: :created
+      else
+        render json: { error: review.errors.full_messages.join(", ") }, status: :unprocessable_entity
       end
-      
-      
-        ### delete an existing review by the id
-        def destroy
-          review = Review.find_by(id: params[:id])
-      
-          if review.nil?
-            render json: { error: "Review not found" }, status: :not_found
-          elsif review.user_id != @current_user.id
-            render json: { error: "You are not authorized to delete this review" }, status: :unauthorized
-          else
-            if review.destroy
-              render json: { success: "Review deleted successfully" }
-            else
-              render json: { error: review.errors.full_messages.join(", ") }, status: :unprocessable_entity
-            end
-          end
-        end
+    end
+  end
+
+  # Delete a review
+  def destroy
+    review = Review.find_by(id: params[:id])
+
+    if review.nil?
+      render json: { error: "Review not found" }, status: :not_found
+    elsif review.user != @current_user
+      render json: { error: "You are not authorized to delete this review" }, status: :unauthorized
+    else
+      if review.destroy
+        render json: { success: "Review deleted successfully" }
+      else
+        render json: { error: review.errors.full_messages.join(", ") }, status: :unprocessable_entity
       end
-    
+    end
+  end
+  private
+
+  def review_params
+    params.permit(:comment)
+  end
+end
