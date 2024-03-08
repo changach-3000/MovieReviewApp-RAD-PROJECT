@@ -21,39 +21,39 @@ function NavBar() {
           </div>
 
           {/* Links */}
-          {currentuser ? (
-           null
-          ) : 
-          <div className="hidden sm:block sm:ml-6">
-          <div className="flex space-x-4">
-            {/* Home Link */}
-            <Link
-              to="/home"
-              className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-              aria-current="page"
-            >
-              HOME
-            </Link>
-
-            {/* WatchList Link */}
-            <Link
-              to="/watchlist"
-              className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-            >
-              WATCHLIST
-            </Link>
-
-            {/* Add Movie Link (for admins) */}
-            {currentuser && currentuser.is_admin  (
+          {currentuser && currentuser ?  (
+            <div className="hidden sm:block sm:ml-6">
+            <div className="flex space-x-4">
+              {/* Home Link */}
               <Link
-                to="/addmovie"
+                to="/home"
+                className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                aria-current="page"
+              >
+                HOME
+              </Link>
+  
+              {/* WatchList Link */}
+              <Link
+                to="/watchlist"
                 className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
               >
-                ADD MOVIE
+                WATCHLIST
               </Link>
-            )}
+  
+              {/* Add Movie Link (for admins) */}
+              {currentuser && currentuser.is_admin &&(
+                <Link
+                  to="/addmovie"
+                  className="text-white hover:bg-amber-500 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                >
+                  ADD MOVIE
+                </Link>
+              )}
+            </div>
           </div>
-        </div>
+          ) : 
+         null
           }
 
           {/* Profile Dropdown */}
