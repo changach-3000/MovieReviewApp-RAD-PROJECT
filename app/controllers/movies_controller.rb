@@ -7,19 +7,19 @@ class MoviesController < ApplicationController
           end
         
       
-      ### Get food by id
-      def show
-           movies= Movie.find_by(id: params[:id])
-           
-           if movies.nil?
-             render json: { error: "Movie not found" }, status: :not_found
-           else
-             render json: movies
-           end
-      end
-         
-         
-           ###add food 
+     # Get movie by id
+  def show
+    movie = Movie.includes(:reviews).find_by(id: params[:id])
+
+    if movie.nil?
+      render json: { error: "Movie not found" }, status: :not_found
+    else
+      render json: movie, include: { reviews: { except: [:created_at, :updated_at] } }, status: :ok
+    end
+  end
+    
+          
+           ###add movie
            def create
             if !@current_user || !@current_user.is_admin?
               render json: { error: "You are not authorized to create a new movie" }, status: :unauthorized
