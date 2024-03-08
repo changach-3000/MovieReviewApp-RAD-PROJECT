@@ -11,7 +11,7 @@ Welcome to the Movie Review App project! This application allows users to sign u
 
 ## Tech Stack
 **frontend** : reactjs
-**backend** : ruby on rail
+**backend** : ruby on rails
 ```key note``` -- install ruby, nodejs to run the commands
 
 ## Features
@@ -29,13 +29,13 @@ Welcome to the Movie Review App project! This application allows users to sign u
 
 ## Admin Credentials
 - **Email**: admintesting@gmail.com
-- **Password**: 123456
+- **Password**: 1234567890123
 
 ## Technologies Used
-- Frontend: HTML, CSS, JavaScript
-- Backend: Node.js, Express.js
-- Database: MongoDB
-- Authentication: JWT (JSON Web Tokens)
+- Frontend: React
+- Backend: Ruby On Rails
+- Database: SQL
+- Authentication: Sessions
 
 ## How to Run the App
 
