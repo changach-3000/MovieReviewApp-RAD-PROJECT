@@ -91,9 +91,10 @@ function NavBar() {
                   >
                     Sign out
                   </a>
-                  <p className="block px-4 py-2 text-sm text-gray-700">
+                 <Link to="/profile"> <p className="block px-4 py-2 text-sm text-gray-700">
                     {currentuser.username}
                   </p>
+                  </Link>
                 </div>
               )}
             </div>

@@ -1,24 +1,31 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { MovieContext } from "../context/MovieContext";
 import Rate from "./Rate";
+import AddReview from "./AddReview";
 
 function SingleMovie() {
   const nav = useNavigate();
   const { id } = useParams();
-  const [movie, setMovie] = useState();
-  const { AddtoWatchlist } = useContext(MovieContext);
+  const [movie, setMovie] = useState(null); // Initialize movie state with null
+  const [showPopup, setShowPopup] = useState(false); // State for controlling the popup
 
   useEffect(() => {
     fetch(`/api/movies/${id}`)
       .then((res) => res.json())
       .then((movie) => {
         setMovie(movie);
-      });
-  }, []);
+      })
+      .catch((error) => console.error("Error fetching movie:", error));
+  }, [id]); // Include id in the dependency array
+
   const goBack = () => {
     nav(-1);
   };
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
   return (
     <div className="m-5 relative">
       {movie ? (
@@ -33,13 +40,12 @@ function SingleMovie() {
             className="img-fluid relative w-full"
             alt="loading..."
           />
-          <div className="absolute top-50 left-0 z-10 p-4 text-white">
+          <div className="absolute top-60 left-0 z-10 p-4 text-white">
             <h5 className="text-3xl italic">{movie.title}</h5>
-            {/* Style the movie details */}
-            <p className="description max-w-md text-l font-medium">{movie.description}</p>
-            <p className="text-amber-500">
-              {movie.subTitle}
+            <p className="description max-w-md text-l font-medium">
+              {movie.description}
             </p>
+            <p className="text-amber-500">{movie.subTitle}</p>
             <div className="buttons">
               <button className="btn text-amber-500">WATCH NOW</button>
               <button className="btn text-amber-500">WATCH TRAILER</button>
@@ -62,12 +68,11 @@ function SingleMovie() {
             ) : (
               <p>No reviews available.</p>
             )}
-           <button
-                      type="submit"
-                      className="inline-flex items-center justify-center  h-10 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-amber-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none"
-                    >
-                      Add Review
-                    </button>
+
+            <button onClick={togglePopup} className="btn text-amber-500 ">
+              Add Review
+            </button>
+            {showPopup && <AddReview onClose={togglePopup} movie_id={movie.id}/>}
           </div>
         </div>
       ) : (
@@ -76,4 +81,5 @@ function SingleMovie() {
     </div>
   );
 }
+
 export default SingleMovie;
