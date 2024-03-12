@@ -94,6 +94,7 @@ function Login() {
                     <button
                       type="submit"
                       className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-amber-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none"
+                    onClick={{handleSubmit}}
                     >
                       Login
                     </button>

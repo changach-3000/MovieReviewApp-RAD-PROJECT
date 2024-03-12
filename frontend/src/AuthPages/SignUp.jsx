@@ -10,7 +10,8 @@ function SignUp() {
   const [email, setEmail] = useState()
   const [profile_picture, setProfilePicture] = useState()
   const [password, setPassword] = useState()
-
+  
+//handlesubmit 
   const handleSubmit = (e) => {
     e.preventDefault()
     signup(username,email,profile_picture,password)

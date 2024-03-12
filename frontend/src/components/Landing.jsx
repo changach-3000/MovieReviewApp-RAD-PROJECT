@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 function Landing() {
+  //this is the landing  page
   return (
     <div className='landing'>
         <img src="/images/login-background.jpg" className='landing-img'/>

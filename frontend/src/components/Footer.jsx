@@ -20,7 +20,7 @@ function Footer() {
                Privacy Policy
              </a>
            </li>
-           <li>
+           <li>x
              <a href="#" class="mr-4 hover:underline md:mr-6">
                Licensing
              </a>
